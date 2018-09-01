@@ -54,6 +54,7 @@ namespace cppit {
 	size_t length() const;
 	short int reserve(const size_t _newBufferSize);
 	char& operator[](const size_t index);
+	String operator=(const String &_dr);
 	~String() {
 	  if (_string)
 		delete[] _string;

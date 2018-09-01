@@ -14,6 +14,21 @@ namespace cppit {
     if (index < _size)
       return _string[index];
   }
+  String String::operator=(const String &_dr) {
+	if (!_dr._string)
+	  exit(1);
+	if (!_string)
+	  delete[] _string;
+	_size = _dr._size;
+	
+	if (_dr._size >= _bufferSize)
+	  _bufferSize = _dr._size + 15u;
+	
+	_string = new char[_bufferSize];
+	for (size_t index = 0u; index < _size; index++)
+	  _string[index] = _dr._string[index];
+	return *this;
+  }
   short int String::reserve(const size_t _newBufferSize) {
 	if (_newBufferSize <= _bufferSize)
 	  return 1; // Forbidden, data loss
