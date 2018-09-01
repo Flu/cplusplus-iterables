@@ -12,9 +12,10 @@ namespace cppit {
   };
   
   class String {
+  public:
 	char* _string;
 	size_t _size, _bufferSize; // _size includes '\0'
-  public:
+  
 	String() {
 	  _string = NULL;
 	  _size = 0u;
@@ -55,6 +56,8 @@ namespace cppit {
 	short int reserve(const size_t _newBufferSize);
 	char& operator[](const size_t index);
 	String operator=(const String &_dr);
+	String operator+=(const String &_dr);
+	String operator+=(const char *_appendString);
 	~String() {
 	  if (_string)
 		delete[] _string;
