@@ -13,7 +13,7 @@ My own line-up of iterables for using in C++. They may be buggy, have more overh
 
 For now just take the files, add them to your project and include the main file like so:
 ```c++
-#include "source.cpp"
+#include "cppit.cpp"
 ```
     
 And use the containers at your own *risk*!
