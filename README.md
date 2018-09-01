@@ -11,7 +11,7 @@ My own line-up of iterables for using in C++. They may be buggy, have more overh
 
 ## Installation
 
-For now just take the files, add them to your project and include the main file like so:
+For now just take the files, add them to your project and include the main file like so (the others are included recursively):
 ```c++
 #include "cppit.cpp"
 ```
