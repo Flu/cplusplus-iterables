@@ -65,16 +65,17 @@ namespace cppit {
 	return *this;
   }
 
-	String String::operator+(const String &_concat) {
+	String String::operator+(const String &_concat) const {
 		if (!_concat._string)
 			exit(1);
 
-		if (_size + _concat._size > _bufferSize)
-			this->reserve(_size + _concat._size + 15u);
+		String temp = *this;
+		if (temp._size + _concat._size > temp._bufferSize)
+			temp.reserve(temp._size + _concat._size + 15u);
 
-		memcpy(_string + _size - 1, _concat._string, _concat._size);
+		memcpy(temp._string + temp._size - 1, _concat._string, _concat._size);
 
-		_size += _concat._size;
-		return *this;
+		temp._size += _concat._size;
+		return temp;
 	}
 } // namespace cppit

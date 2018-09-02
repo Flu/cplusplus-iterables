@@ -62,13 +62,13 @@ namespace cppit {
 	char& operator[](const size_t index);
 	String operator=(const String &_dr);
 	String operator+=(const String &_appendString);
-	String operator+(const String &_concat);
+	String operator+(const String &_concat) const;
 
 	~String() {
 	  if (_string)
 		delete[] _string;
 	}
-	
+
   friend std::ostream& operator<<(std::ostream &os, const String &string);
 	friend std::istream& operator>>(std::istream &is, const String &string);
   };
