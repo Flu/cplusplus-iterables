@@ -59,4 +59,14 @@ namespace cppit {
 	_size += _appendString._size - 1;
 	return *this;
   }
+	String String::operator+(const String &_concat) {
+		if (!_concat._string)
+			exit(1);
+		if (_size + _concat._size > _bufferSize) {
+			this->reserve(_size + _concat._size + 15u);
+		} else
+	memcpy(_string + _size - 1, _concat._string, _concat._size);
+	_size += _concat._size;
+	return *this;
+	}
 } // namespace cppit

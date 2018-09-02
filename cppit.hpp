@@ -1,5 +1,7 @@
 #include <iostream>
 #include <functional>
+#include <stdio.h>
+#include <string.h>
 
 namespace cppit {
   
@@ -56,12 +58,13 @@ namespace cppit {
 	short int reserve(const size_t _newBufferSize);
 	char& operator[](const size_t index);
 	String operator=(const String &_dr);
-	String operator+=(const String &_dr);
+	String operator+=(const String &_appendString);
+	String operator+(const String &_concat);
 	~String() {
 	  if (_string)
 		delete[] _string;
 	}
-  	friend std::ostream& operator<<(std::ostream &os, const String &string);
+  friend std::ostream& operator<<(std::ostream &os, const String &string);
 	friend std::istream& operator>>(std::istream &is, const String &string);
   };
 } // namespace cppit
