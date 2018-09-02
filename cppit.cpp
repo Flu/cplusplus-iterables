@@ -70,6 +70,10 @@ namespace cppit {
 		return *this;
 	}
 
+	String String::append(const String &_appendString) {
+		return this->operator+=(_appendString);
+	}
+
 	String String::operator+(const String &_concat) const {
 		if (!_concat._string)
 			exit(1);
