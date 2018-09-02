@@ -7,13 +7,16 @@ namespace cppit {
       os << string._string[index];
     return os;
   }
+
   std::istream& operator>>(std::istream &is, const String &string) {
 	
   }
+
   char& String::operator[](const size_t index) {
     if (index < _size)
       return _string[index];
   }
+
   String String::operator=(const String &_dr) {
 	if (!_dr._string)
 	  exit(1);
@@ -28,6 +31,7 @@ namespace cppit {
 	  _string[index] = _dr._string[index];
 	return *this;
   }
+
   short int String::reserve(const size_t _newBufferSize) {
 	if (_newBufferSize <= _bufferSize)
 	  return 1; // Forbidden, data loss
@@ -45,6 +49,7 @@ namespace cppit {
 	  _string[index] = temp[index];
 	return 0;
   }
+
   String String::operator+=(const String &_appendString) {
 	if (!_appendString._string)
 	  exit(1); // Can't append null cppit::String
@@ -59,13 +64,16 @@ namespace cppit {
 	_size += _appendString._size - 1;
 	return *this;
   }
+	
 	String String::operator+(const String &_concat) {
 		if (!_concat._string)
 			exit(1);
+
 		if (_size + _concat._size > _bufferSize) {
 			this->reserve(_size + _concat._size + 15u);
 		} else
 	memcpy(_string + _size - 1, _concat._string, _concat._size);
+
 	_size += _concat._size;
 	return *this;
 	}

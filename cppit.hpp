@@ -23,6 +23,7 @@ namespace cppit {
 	  _size = 0u;
 	  _bufferSize = 20u;
   	}
+
 	String(const char *_init) {
 	  _bufferSize = 20u;
 	  if (!_init)
@@ -38,6 +39,7 @@ namespace cppit {
 	  for (size_t index = 0u; index < _size; index++)
 		_string[index] = _init[index];
 	}
+
 	String(const String &_dr) {
 	  _string = NULL;
 	  _size = 0u;
@@ -54,16 +56,19 @@ namespace cppit {
 	  for (size_t index = 0u; index < _size; index++)
 		_string[index] = _dr._string[index];
 	}
+
 	size_t length() const;
 	short int reserve(const size_t _newBufferSize);
 	char& operator[](const size_t index);
 	String operator=(const String &_dr);
 	String operator+=(const String &_appendString);
 	String operator+(const String &_concat);
+
 	~String() {
 	  if (_string)
 		delete[] _string;
 	}
+	
   friend std::ostream& operator<<(std::ostream &os, const String &string);
 	friend std::istream& operator>>(std::istream &is, const String &string);
   };
