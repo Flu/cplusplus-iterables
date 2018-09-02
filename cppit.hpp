@@ -63,6 +63,7 @@ namespace cppit {
 	String operator=(const String &_dr);
 	String operator+=(const String &_appendString);
 	String operator+(const String &_concat) const;
+	size_t bufferSize() const;
 
 	~String() {
 	  if (_string)

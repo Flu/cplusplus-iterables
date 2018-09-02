@@ -13,8 +13,9 @@ namespace cppit {
   }
 
   char& String::operator[](const size_t index) {
-    if (index < _size)
-      return _string[index];
+  	if (index < _size)
+  	  return _string[index];
+		exit(1); // Out-of-bounds index	
   }
 
   String String::operator=(const String &_dr) {
@@ -75,5 +76,9 @@ namespace cppit {
 
 		_temp._size += _concat._size;
 		return _temp;
+	}
+
+	size_t String::bufferSize() const {
+		return this->_bufferSize;
 	}
 } // namespace cppit
