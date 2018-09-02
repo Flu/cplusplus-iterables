@@ -51,6 +51,12 @@ namespace cppit {
 		return 0;
   }
 
+	bool String::operator==(const String &_obj) {
+		if (_size != _obj._size)
+			return false;
+		return memcmp(_string, _obj._string, _size) == 0 ? true : false;
+	}
+
   String String::operator+=(const String &_appendString) {
 		if (!_appendString._string)
 	  	exit(1); // Can't append null cppit::String
@@ -93,6 +99,7 @@ namespace cppit {
 			return false;
 		_bufferSize = _size;
 		memcpy(_string, _temp, _size);
+
 		return true;
 	}
 } // namespace cppit

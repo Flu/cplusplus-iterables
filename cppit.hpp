@@ -61,6 +61,7 @@ namespace cppit {
 	short int reserve(const size_t _newBufferSize);
 	char& operator[](const size_t _index);
 	String operator=(const String &_dr);
+	bool operator==(const String &_obj);
 	String operator+=(const String &_appendString);
 	String operator+(const String &_concat) const;
 	size_t bufferSize() const;
