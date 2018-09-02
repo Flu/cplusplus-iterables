@@ -81,4 +81,18 @@ namespace cppit {
 	size_t String::bufferSize() const {
 		return this->_bufferSize;
 	}
+
+	bool String::shrink() {
+		char *_temp;
+		if (!(_temp = new char[_size]))
+			return false;
+		memcpy(_temp, _string, _size);
+
+		delete[] _string;
+		if (!(_string = new char[_size]))
+			return false;
+		_bufferSize = _size;
+		memcpy(_string, _temp, _size);
+		return true;
+	}
 } // namespace cppit
