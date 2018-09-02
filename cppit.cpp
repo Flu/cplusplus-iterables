@@ -45,8 +45,18 @@ namespace cppit {
 	  _string[index] = temp[index];
 	return 0;
   }
-  String String::operator+=(const String &_dr) {
-	if (!_dr._string)
+  String String::operator+=(const String &_appendString) {
+	if (!_appendString._string)
 	  exit(1); // Can't append null cppit::String
+	
+	if (_size + _appendString._size > _bufferSize) {
+	  reserve(_size + _appendString._size + 15u);
+	}
+	
+	for (size_t index1 = _size - 1, index2 = 0u; index2 < _appendString._size; index1++, index2++)
+	  _string[index1] = _appendString._string[index2];
+	
+	_size += _appendString._size - 1;
+	return *this;
   }
 } // namespace cppit

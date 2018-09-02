@@ -57,7 +57,6 @@ namespace cppit {
 	char& operator[](const size_t index);
 	String operator=(const String &_dr);
 	String operator+=(const String &_dr);
-	String operator+=(const char *_appendString);
 	~String() {
 	  if (_string)
 		delete[] _string;
