@@ -12,10 +12,10 @@ namespace cppit {
   };
   
   class String {
-  public:
+  private:
 	char* _string;
 	size_t _size, _bufferSize; // _size includes '\0'
-  
+  public:
 	String() {
 	  _string = NULL;
 	  _size = 0u;
