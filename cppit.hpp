@@ -19,7 +19,7 @@ namespace cppit {
 	size_t _size, _bufferSize; // _size includes '\0'
   public:
 	String() {
-	  _string = NULL;
+	  _string = nullptr;
 	  _size = 0u;
 	  _bufferSize = 20u;
   	}
@@ -27,7 +27,7 @@ namespace cppit {
 	String(const char *_init) {
 	  _bufferSize = 20u;
 	  if (!_init)
-		exit(1); //Failure to copy NULL string
+		exit(1); // Failure to copy nullptr string
       const char *_initPointer;
 	  // Use pointer arithmetic to compute string size
 	  for (_initPointer = _init; *_initPointer != '\0'; _initPointer++) {}
@@ -35,13 +35,13 @@ namespace cppit {
 	  if (_size >= _bufferSize) // Allocate for string size + '\0'
 		_bufferSize = _size + 15u;
 	  if (!(_string = new char[_bufferSize]))
-		exit(2); //Bad alloc
+		exit(2); // Bad alloc
 	  for (size_t index = 0u; index < _size; index++)
 		_string[index] = _init[index];
 	}
 
 	String(const String &_dr) {
-	  _string = NULL;
+	  _string = nullptr;
 	  _size = 0u;
 	  _bufferSize = 20u;
 	  
