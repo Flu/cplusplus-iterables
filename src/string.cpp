@@ -3,7 +3,7 @@
 namespace cppit {
 
   std::ostream& operator<<(std::ostream &os, const String &string) {
-    for (size_t index = 0u; index < string._size; index++)
+    for (size_t index = 0ul; index < string._size; index++)
       os << string._string[index];
     return os;
   }
@@ -24,11 +24,11 @@ namespace cppit {
 	_size = _dr._size;
 	
 	if (_dr._size >= _bufferSize || _string == nullptr) {
-	  _bufferSize = _dr._size + 15u;
+	  _bufferSize = _dr._size + 15ul;
 	  _string = new char[_bufferSize];
 	}
 
-	for (size_t index = 0u; index < _size; index++)
+	for (size_t index = 0ul; index < _size; index++)
 	  _string[index] = _dr._string[index];
 	return *this;
   }
@@ -51,7 +51,7 @@ namespace cppit {
 		return 0;
   }
 
-	bool String::operator==(const String &_obj) {
+	bool String::operator==(const String &_obj) const {
 		if (_size != _obj._size)
 			return false;
 		return memcmp(_string, _obj._string, _size) == 0 ? true : false;
@@ -62,7 +62,7 @@ namespace cppit {
 	  	exit(1); // Can't append null cppit::String
 	
 		if (_size + _appendString._size > _bufferSize)
-	  	reserve(_size + _appendString._size + 15u);
+	  	reserve(_size + _appendString._size + 15ul);
 
 		memcpy(_string + _size - 1, _appendString._string, _appendString._size);
 
@@ -80,9 +80,9 @@ namespace cppit {
 
 		String _temp = *this;
 		if (_temp._size + _concat._size > _temp._bufferSize)
-			_temp.reserve(_temp._size + _concat._size + 15u);
+			_temp.reserve(_temp._size + _concat._size + 15ul);
 
-		memcpy(_temp._string + _temp._size - 1, _concat._string, _concat._size);
+		memcpy(_temp._string + _temp._size - 1ul, _concat._string, _concat._size);
 
 		_temp._size += _concat._size;
 		return _temp;
@@ -105,5 +105,27 @@ namespace cppit {
 		memcpy(_string, _temp, _size);
 
 		return true;
+	}
+
+	inline bool String::isLower(const char _char) const {
+		return (_char >= 65 && _char <= 90) ? true : false;
+	}
+
+	String String::toLower() const {
+		String _temp = *this;
+		for (char *_char = _temp._string; _char < _temp._string + _temp._size - 1; _char++) {
+			if (*_char >= 65 && *_char <= 90)
+				*_char += 32;
+		}
+		return _temp;
+	}
+
+	String String::toUpper() const {
+		String _temp = *this;
+		for (char *_char = _temp._string; _char < _temp._string + _temp._size - 1; _char++) {
+			if (*_char >= 97 && *_char <= 122)
+				*_char -= 32;
+		}
+		return _temp;
 	}
 } // namespace cppit

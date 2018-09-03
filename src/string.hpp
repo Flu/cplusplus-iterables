@@ -6,9 +6,11 @@ namespace cppit {
 		char* _string;
 		size_t _size, _bufferSize; // _size includes '\0'
 
-  public:
+		bool isLower(const char _char) const;
+
+  	public:
 		String() {
-	  	_string = nullptr;
+		_string = nullptr;
 	  	_size = 0u;
 	  	_bufferSize = 20u;
   	}
@@ -47,13 +49,16 @@ namespace cppit {
 		}
 
 		size_t length() const;
-		short int reserve(const size_t _newBufferSize);
 		char& operator[](const size_t _index);
 		String operator=(const String &_dr);
-		bool operator==(const String &_obj);
+		bool operator==(const String &_obj) const;
 		String operator+=(const String &_appendString);
 		String append(const String &_appendString);
 		String operator+(const String &_concat) const;
+		String toLower() const;
+		String toUpper() const;
+
+		short int reserve(const size_t _newBufferSize);
 		size_t bufferSize() const;
 		bool shrink();
 
