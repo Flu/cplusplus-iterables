@@ -16,7 +16,7 @@ namespace cppit {
 			_bufferSize = 20ul;
 			if (!_initArray)
 				exit(1);
-			std::cout << "yeah";
+				
 			T* _initPointer;
 			for (_initPointer = _initArray; !_initPointer; _initPointer++);
 			_size  = _initPointer - _initArray;
