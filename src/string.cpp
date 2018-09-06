@@ -37,17 +37,15 @@ namespace cppit {
 		if (_newBufferSize <= _bufferSize)
 	  	return 1; // Forbidden, data loss
 		_bufferSize = _newBufferSize;
-		char *_temp;
-		if (!(_temp = new char[_size]))
-			return 2; // Bad alloc - not enough free memory
-		memcpy(_temp, _string, _size);
-	
-		delete[] _string;
-		if (!(_string = new char[_bufferSize]))
-	  	return 2; // Bad alloc - not enough free memory
-		memcpy(_string, _temp, _size);
-		delete[] _temp;
 
+		char *_temp;
+		if (!(_temp = new char[_newBufferSize]))
+			return 2;
+		memcpy(_temp, _string, _size);
+		delete[] _string;
+
+		_string = _temp;
+		_temp = nullptr;
 		return 0;
   }
 
