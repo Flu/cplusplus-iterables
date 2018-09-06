@@ -1,50 +1,46 @@
-#include "cppit.hpp"
-
 namespace cppit {
 	class String {
 	private:
 		char* _string;
 		size_t _size, _bufferSize; // _size includes '\0'
 
-		bool isLower(const char _char) const;
-
   	public:
 		String() {
-		_string = nullptr;
-	  	_size = 0u;
-	  	_bufferSize = 20u;
+			_string = nullptr;
+	  	_size = 0ul;
+	  	_bufferSize = 20ul;
   	}
 
 		String(const char *_init) {
-		  _bufferSize = 20u;
+		  _bufferSize = 20ul;
 		  if (!_init)
 				exit(1); // Failure to copy nullptr string
 	    const char *_initPointer;
 		  // Use pointer arithmetic to compute string size
-		  for (_initPointer = _init; *_initPointer != '\0'; _initPointer++) {}
-		  _size = _initPointer - _init + 1u;
+		  for (_initPointer = _init; *_initPointer != '\0'; _initPointer++);
+		  _size = _initPointer - _init + 1ul;
 		  if (_size >= _bufferSize) // Allocate for string size + '\0'
-			_bufferSize = _size + 15u;
+				_bufferSize = _size + 15ul;
 		  if (!(_string = new char[_bufferSize]))
-			exit(2); // Bad alloc
+				exit(2); // Bad alloc
 			for (size_t index = 0u; index < _size; index++)
-			_string[index] = _init[index];
+				_string[index] = _init[index];
 		}
 
 		String(const String &_dr) {
 	  	_string = nullptr;
-	  	_size = 0u;
-	  	_bufferSize = 20u;
+	  	_size = 0ul;
+	  	_bufferSize = 20ul;
 	  
 	  	if (!_dr._string)
 				exit(1);
 	  	_size = _dr._size;
 	  
 	  	if (_dr._size >= _bufferSize)
-				_bufferSize = _dr._size + 15u;
+				_bufferSize = _dr._size + 15ul;
 	  
 	  	_string = new char[_bufferSize];
-	  	for (size_t index = 0u; index < _size; index++)
+	  	for (size_t index = 0ul; index < _size; index++)
 			_string[index] = _dr._string[index];
 		}
 

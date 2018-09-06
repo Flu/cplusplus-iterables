@@ -14,8 +14,17 @@ namespace cppit {
   };
   
   class String;
+	template<typename T> class Vector;
 	class Dictionary;
 	class MultiDict;
-	class Vector;
 	class Tuple;
 } // namespace cppit
+
+#ifndef _CPPIT_STRING
+	#define _CPPIT_STRING
+	#include "string.cpp"
+#endif
+#ifndef _CPPIT_VECTOR
+	#define _CPPIT_VECTOR
+	#include "vector.cpp"
+#endif

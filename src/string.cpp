@@ -105,10 +105,6 @@ namespace cppit {
 		return true;
 	}
 
-	inline bool String::isLower(const char _char) const {
-		return (_char >= 65 && _char <= 90) ? true : false;
-	}
-
 	String String::toLower() const {
 		String _temp = *this;
 		for (char *_char = _temp._string; _char < _temp._string + _temp._size - 1; _char++) {
