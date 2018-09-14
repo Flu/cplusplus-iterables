@@ -41,7 +41,7 @@ namespace cppit {
 	  
 	  	_string = new char[_bufferSize];
 	  	for (size_t index = 0ul; index < _size; index++)
-			_string[index] = _dr._string[index];
+				_string[index] = _dr._string[index];
 		}
 
 		size_t length() const;
