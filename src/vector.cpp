@@ -3,10 +3,10 @@
 namespace cppit {
 
 	template<typename T>
-	std::ostream& operator<<(std::ostream &_os, const Vector<T> _output) {
+	std::ostream& operator<<(std::ostream &_os, const Vector<T> &_output) {
 		_os << "[";
 		for (size_t _index = 0ul; _index < _output._size; _index++)
-			_os << _output._vector[index] << ", ";
+			_os << _output._vector[_index] << ", ";
 		_os << "]";
 		return _os;
 	}
@@ -16,6 +16,7 @@ namespace cppit {
 		if (_newBufferSize < _bufferSize)
 			return 1; // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
+
 		T *_temp;
 		if (!(_temp = new T[_bufferSize]))
 			return 2; //Bad allocation
@@ -44,6 +45,17 @@ namespace cppit {
 		_bufferSize = _size;
 
 		return true; // Return succesfully
+	}
+
+	template<typename T>
+	short int Vector<T>::push_back(const T &_elem) {
+		if (_size + 1 > _bufferSize)
+			if(reserve(_bufferSize + 20ul))
+				return 1;
+		
+		_vector[_size] = _elem;
+		_size++;
+		return 0;
 	}
 
 	template<typename T>

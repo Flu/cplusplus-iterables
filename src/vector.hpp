@@ -1,7 +1,8 @@
 namespace cppit {
 
 	template<typename T>
-	std::ostream& operator<<(std::ostream& _os, Vector<T>& _output);
+	std::ostream& operator<<(std::ostream& _os, const Vector<T>& _output);
+
 
 	template<typename T>
 	class Vector {
@@ -45,12 +46,14 @@ namespace cppit {
 		}
 
 		size_t length() const;
+		short int push_back(const T &_elem);
+		T pop();
 
 		short int reserve(const size_t _newBufferSize);
 		bool shrink();
 		size_t bufferSize() const;		
 
-		friend std::ostream& operator<<<T>(std::ostream &_os, const Vector<T> &_output);
+		friend std::ostream& operator<< <>(std::ostream &_os, const Vector &_output);
 
 		~Vector() {
 			if (_vector)
