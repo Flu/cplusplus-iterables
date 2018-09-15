@@ -59,8 +59,15 @@ namespace cppit {
 	}
 
 	template<typename T>
+	T& Vector<T>::operator[](const size_t& _pos) {
+		if (_pos > _size - 1)
+			exit(1); // Not accessible
+		return this->_vector[_pos];
+	}
+
+	template<typename T>
 	size_t Vector<T>::length() const {
-		return this->size;
+		return this->_size;
 	}
 
 } // namespace cppit

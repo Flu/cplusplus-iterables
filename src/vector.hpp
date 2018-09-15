@@ -48,6 +48,7 @@ namespace cppit {
 		size_t length() const;
 		short int push_back(const T &_elem);
 		T pop();
+		T& operator[](const size_t &_pos);
 
 		short int reserve(const size_t _newBufferSize);
 		bool shrink();
