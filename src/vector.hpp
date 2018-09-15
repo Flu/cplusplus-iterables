@@ -44,6 +44,8 @@ namespace cppit {
 			_vector = new T[_bufferSize];
 		}
 
+		size_t length() const;
+
 		short int reserve(const size_t _newBufferSize);
 		bool shrink();
 		size_t bufferSize() const;		

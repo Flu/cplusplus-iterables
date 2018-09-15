@@ -42,8 +42,13 @@ namespace cppit {
 		delete[] _vector;
 		_vector = _temp;
 		_bufferSize = _size;
-		
+
 		return true; // Return succesfully
 	}
 
-}
+	template<typename T>
+	size_t Vector<T>::length() const {
+		return this->size;
+	}
+
+} // namespace cppit
