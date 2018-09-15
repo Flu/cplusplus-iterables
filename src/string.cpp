@@ -125,19 +125,21 @@ namespace cppit {
 	}
 
 	size_t String::query(const String &_substr) const {
-		if (this->_size == 0 || _substr._size == 0 || _size < _substr._size)
+		if (this->_size == 0ul || _substr._size == 0ul || _size < _substr._size)
 			return 800;
+		std::cout << "===" << _size << " " << _substr._size << "===" << std::endl;
 		bool _foundSubString;
-		for (size_t _index = 0ul; _index < _size; _index++) {
+
+		for (size_t _index = 0ul; _index < _size - 1; _index++) {
 			_foundSubString = true;
-			for (size_t _itr1 = _index, _itr2 = 0; (_itr1 < _index + _substr._size) || _index + _substr._size <= _size; _itr1++, _itr2++) {
-				std::cout << _index << " " << _string[_index] << ", " << _itr2 << " " << _substr._string[_itr2] << std::endl;
-				if (_string[_itr1] != _substr._string[_itr2]) {
-					_foundSubString = false;
-					break;
+			std::cout << _index << " " << _string[_index] << " " << _substr._string[_index] << std::endl;
+			if (_string[_index] == _substr._string[_index] || (_index + _substr._size < _size)) {
+				for (size_t _it1 = _index, _it2 = 0ul; _it2 < _substr._size - 1; _it1++, _it2++) {
+					if (_string[_it1] != _substr._string[_it2])
+						_foundSubString = false;
 				}
 			}
-			if (_foundSubString)
+			if (_foundSubString == true)
 				return _index;
 		}
 		return 900;
