@@ -123,4 +123,23 @@ namespace cppit {
 		}
 		return _temp;
 	}
+
+	size_t String::query(const String &_substr) const {
+		if (this->_size == 0 || _substr._size == 0 || _size < _substr._size)
+			return 800;
+		bool _foundSubString;
+		for (size_t _index = 0ul; _index < _size; _index++) {
+			_foundSubString = true;
+			for (size_t _itr1 = _index, _itr2 = 0; (_itr1 < _index + _substr._size) || _index + _substr._size <= _size; _itr1++, _itr2++) {
+				std::cout << _index << " " << _string[_index] << ", " << _itr2 << " " << _substr._string[_itr2] << std::endl;
+				if (_string[_itr1] != _substr._string[_itr2]) {
+					_foundSubString = false;
+					break;
+				}
+			}
+			if (_foundSubString)
+				return _index;
+		}
+		return 900;
+	}
 } // namespace cppit
