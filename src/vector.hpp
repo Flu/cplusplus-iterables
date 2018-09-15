@@ -44,6 +44,10 @@ namespace cppit {
 			_vector = new T[_bufferSize];
 		}
 
+		short int reserve(const size_t _newBufferSize);
+		bool shrink();
+		size_t bufferSize() const;		
+
 		friend std::ostream& operator<<<T>(std::ostream &_os, const Vector<T> &_output);
 
 		~Vector() {

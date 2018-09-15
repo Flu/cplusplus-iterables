@@ -41,7 +41,6 @@ namespace cppit {
 		delete[] _string;
 
 		_string = _temp;
-		_temp = nullptr;
 		return 0;
   }
 
@@ -93,10 +92,8 @@ namespace cppit {
 		memcpy(_temp, _string, _size);
 
 		delete[] _string;
-		if (!(_string = new char[_size]))
-			return false;
+		_string = _temp;
 		_bufferSize = _size;
-		memcpy(_string, _temp, _size);
 
 		return true;
 	}
