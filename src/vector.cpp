@@ -13,15 +13,15 @@ namespace cppit {
 
 	template<typename T>
 	short int Vector<T>::reserve(const size_t _newBufferSize) {
-		if (_newBufferSize < _bufferSize)
+		if (_newBufferSize <= _bufferSize)
 			return 1; // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
 
 		T *_temp;
-		if (!(_temp = new T[_bufferSize]))
+		if (!(_temp = new T[_newBufferSize]))
 			return 2; //Bad allocation
 
-		memcpy(_temp, this->_vector, _size);
+		memcpy(_temp, this->_vector, _size*sizeof(T));
 		delete[] _vector;
 
 		_vector = _temp;
@@ -38,7 +38,7 @@ namespace cppit {
 		T *_temp;
 		if (!(_temp = new T[_size]))
 			return false; // Bad allocation
-		memcpy(_temp, _vector, _size);
+		memcpy(_temp, _vector, _size*sizeof(T));
 
 		delete[] _vector;
 		_vector = _temp;
