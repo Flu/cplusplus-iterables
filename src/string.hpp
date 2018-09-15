@@ -53,6 +53,7 @@ namespace cppit {
 		String operator+(const String &_concat) const;
 		String toLower() const;
 		String toUpper() const;
+		String reverse() const;
 
 		short int reserve(const size_t _newBufferSize);
 		size_t bufferSize() const;

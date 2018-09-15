@@ -8,10 +8,6 @@ namespace cppit {
     return os;
   }
 
-  std::istream& operator>>(std::istream &is, const String &string) {
-	
-  }
-
   char& String::operator[](const size_t index) {
   	if (index < _size)
   	  return _string[index];
@@ -119,6 +115,14 @@ namespace cppit {
 		for (char *_char = _temp._string; _char < _temp._string + _temp._size - 1; _char++) {
 			if (*_char >= 97 && *_char <= 122)
 				*_char -= 32;
+		}
+		return _temp;
+	}
+
+	String String::reverse() const {
+		String _temp = *this;
+		for (size_t _index = 0ul; _index < _temp._size; _index++) {
+			_temp._string[_index] = this->_string[_size - _index - 1];
 		}
 		return _temp;
 	}

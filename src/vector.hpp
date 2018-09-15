@@ -1,6 +1,9 @@
 namespace cppit {
 
 	template<typename T>
+	std::ostream& operator<<(std::ostream& _os, Vector<T>& _output);
+
+	template<typename T>
 	class Vector {
 	private:
 		T* _vector;
@@ -41,8 +44,7 @@ namespace cppit {
 			_vector = new T[_bufferSize];
 		}
 
-		friend std::istream& operator>> <T>(std::istream &_is, const Vector<T> &_input);
-		friend std::ostream& operator<< <T>(std::ostream &_os, const Vector<T> &_output);
+		friend std::ostream& operator<<<T>(std::ostream &_os, const Vector<T> &_output);
 
 		~Vector() {
 			if (_vector)
