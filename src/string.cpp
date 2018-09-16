@@ -8,10 +8,6 @@ namespace cppit {
     return os;
   }
 
-  std::istream& operator>>(std::istream &is, const String &string) {
-	
-  }
-
   char& String::operator[](const size_t index) {
   	if (index < _size)
   	  return _string[index];
@@ -45,7 +41,6 @@ namespace cppit {
 		delete[] _string;
 
 		_string = _temp;
-		_temp = nullptr;
 		return 0;
   }
 
@@ -97,10 +92,8 @@ namespace cppit {
 		memcpy(_temp, _string, _size);
 
 		delete[] _string;
-		if (!(_string = new char[_size]))
-			return false;
+		_string = _temp;
 		_bufferSize = _size;
-		memcpy(_string, _temp, _size);
 
 		return true;
 	}
@@ -121,5 +114,34 @@ namespace cppit {
 				*_char -= 32;
 		}
 		return _temp;
+	}
+
+	String String::reverse() const {
+		String _temp = *this;
+		for (size_t _index = 0ul; _index < _temp._size; _index++) {
+			_temp._string[_index] = this->_string[_size - _index - 1];
+		}
+		return _temp;
+	}
+
+	size_t String::query(const String &_substr) const {
+		if (this->_size == 0ul || _substr._size == 0ul || _size < _substr._size)
+			return 800;
+		std::cout << "===" << _size << " " << _substr._size << "===" << std::endl;
+		bool _foundSubString;
+
+		for (size_t _index = 0ul; _index < _size - 1; _index++) {
+			_foundSubString = true;
+			std::cout << _index << " " << _string[_index] << " " << _substr._string[_index] << std::endl;
+			if (_string[_index] == _substr._string[_index] || (_index + _substr._size < _size)) {
+				for (size_t _it1 = _index, _it2 = 0ul; _it2 < _substr._size - 1; _it1++, _it2++) {
+					if (_string[_it1] != _substr._string[_it2])
+						_foundSubString = false;
+				}
+			}
+			if (_foundSubString == true)
+				return _index;
+		}
+		return 900;
 	}
 } // namespace cppit

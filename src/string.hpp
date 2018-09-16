@@ -15,7 +15,7 @@ namespace cppit {
 		  _bufferSize = 20ul;
 		  if (!_init)
 				exit(1); // Failure to copy nullptr string
-	    const char *_initPointer;
+		const char *_initPointer;
 		  // Use pointer arithmetic to compute string size
 		  for (_initPointer = _init; *_initPointer != '\0'; _initPointer++);
 		  _size = _initPointer - _init + 1ul;
@@ -41,7 +41,7 @@ namespace cppit {
 	  
 	  	_string = new char[_bufferSize];
 	  	for (size_t index = 0ul; index < _size; index++)
-			_string[index] = _dr._string[index];
+				_string[index] = _dr._string[index];
 		}
 
 		size_t length() const;
@@ -53,6 +53,8 @@ namespace cppit {
 		String operator+(const String &_concat) const;
 		String toLower() const;
 		String toUpper() const;
+		String reverse() const;
+		size_t query(const String &_substring) const;
 
 		short int reserve(const size_t _newBufferSize);
 		size_t bufferSize() const;
@@ -64,6 +66,5 @@ namespace cppit {
 		}
 
   	friend std::ostream& operator<<(std::ostream &os, const String &string);
-		friend std::istream& operator>>(std::istream &is, const String &string);
   };
 }
