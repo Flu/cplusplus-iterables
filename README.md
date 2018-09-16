@@ -5,15 +5,15 @@ My own line-up of iterables for using in C++. They may be buggy, have more overh
 ## What you will find in the box:
 - [ ] Generator class - returns a nice smart pointer for you to access the other iterables
 - [x] A String class that will disappoint
+- [x] Vector - in case std::vector is too well made and you want something more 'experimental'
 - [ ] Dictionary - class for key-value store (be careful, those are immutable and moody)
 - [ ] Multi-dict - in case you thought a dictionary is not enough (use it to store more values for a key)
-- [ ] Vector - in case std::vector is too well made and you want something more 'experimental'
 
 ## Installation
 
 For now just take the files, add them to your project and include the main file like so (the others are included recursively):
 ```c++
-#include "cppit.cpp"
+#include "cppit.hpp"
 ```
     
 And use the containers at your own *risk*!
