@@ -47,6 +47,8 @@ namespace cppit {
 
 		size_t length() const;
 		short int push_back(const T &_elem);
+		short int push_front(const T &_elem);
+		short int insert(const T &_elem, const size_t &_pos);
 		T pop();
 		T& operator[](const size_t &_pos);
 
