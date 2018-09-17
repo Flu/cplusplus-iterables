@@ -68,3 +68,5 @@ namespace cppit {
   	friend std::ostream& operator<<(std::ostream &os, const String &string);
   };
 }
+
+#include "regex.hpp"
