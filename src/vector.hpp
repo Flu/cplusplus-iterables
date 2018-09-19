@@ -45,14 +45,15 @@ namespace cppit {
 			_vector = new T[_bufferSize];
 		}
 
-		size_t length() const;
+		const size_t length() const;
 		short int push_back(const T &_elem);
 		short int push_front(const T &_elem);
 		short int insert(const T &_elem, const size_t &_pos);
 		T pop();
 		T& operator[](const size_t &_pos);
+		void swap(Vector<T> &_swapVector);
 
-		short int reserve(const size_t _newBufferSize);
+		short int reserve(const size_t &_newBufferSize);
 		bool shrink();
 		size_t bufferSize() const;		
 

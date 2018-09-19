@@ -12,7 +12,7 @@ namespace cppit {
 	}
 
 	template<typename T>
-	short int Vector<T>::reserve(const size_t _newBufferSize) {
+	short int Vector<T>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
 			return 1; // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
@@ -87,7 +87,21 @@ namespace cppit {
 	}
 
 	template<typename T>
-	size_t Vector<T>::length() const {
+	void Vector<T>::swap(Vector<T> &_swapVector) {
+		T* _temp = this->_vector;
+		this->_vector = _swapVector._vector;
+		_swapVector._vector = _temp;
+		size_t _tempSize = this->_bufferSize;
+		this->_bufferSize = _swapVector._bufferSize;
+		_swapVector._bufferSize = _tempSize;
+		_tempSize = this->_size;
+		this->_size = _swapVector._size;
+		_swapVector._size = _tempSize;
+		_temp = nullptr;
+	}
+
+	template<typename T>
+	const size_t Vector<T>::length() const {
 		return this->_size;
 	}
 

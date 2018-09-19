@@ -144,4 +144,21 @@ namespace cppit {
 		}
 		return 900;
 	}
+
+	void String::swap(String &_swapVector) {
+		char* _temp = this->_string;
+		this->_string = _swapVector._string;
+		_swapVector._string = _temp;
+		size_t _tempSize = this->_bufferSize;
+		this->_bufferSize = _swapVector._bufferSize;
+		_swapVector._bufferSize = _tempSize;
+		_tempSize = this->_size;
+		this->_size = _swapVector._size;
+		_swapVector._size = _tempSize;
+		_temp = nullptr;
+	}
+
+	size_t String::length() const {
+		return this->_size;
+	}
 } // namespace cppit

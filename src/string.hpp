@@ -55,6 +55,7 @@ namespace cppit {
 		String toUpper() const;
 		String reverse() const;
 		size_t query(const String &_substring) const;
+		void swap(String &_swapString);
 
 		short int reserve(const size_t _newBufferSize);
 		size_t bufferSize() const;
