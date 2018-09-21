@@ -12,6 +12,38 @@ namespace cppit {
 	}
 
 	template<typename T>
+	bool Vector<T>::operator==(const Vector<T> &_compareVector) {
+		if (this->_size != _compareVector._size)
+			return false;
+		for (size_t _index = 0ul; _index < _size; _index++) {
+			if (_vector[_index] != _compareVector[_index])
+				return false;
+		}
+		return true;
+	}
+
+	template<typename T>
+	inline short int Vector<T>::operator+=(const T &_elem) {
+		return this->push_back(_elem);
+	}
+
+	template<typename T>
+	short int Vector<T>::operator=(const Vector<T> &_copyVector) {
+		if (_copyVector._vector == nullptr)
+			return 1; // Won't copy uninitialized vector - preventing undefined behaviour
+		if (_vector)
+			delete[] _vector;
+		_vector = nullptr;
+		_size = _copyVector._size;
+		_bufferSize = _copyVector._bufferSize;
+		
+		if (!(_vector = new T[_bufferSize]))
+			return 2;
+		memcpy(_vector, _copyVector._vector, _size*sizeof(T));
+		return 0;
+	}
+
+	template<typename T>
 	short int Vector<T>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
 			return 1; // Loss of data, forbidden
