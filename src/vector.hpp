@@ -56,7 +56,7 @@ namespace cppit {
 		void swap(Vector<T> &_swapVector);
 		bool operator==(const Vector<T> &_compareVector);
 		inline short int operator+=(const T &_elem);
-		short int operator=(const Vector<T> &_copyVector);
+		Vector<T> operator=(const Vector<T> &_copyVector);
 
 		short int reserve(const size_t &_newBufferSize);
 		bool shrink();

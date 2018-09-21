@@ -28,7 +28,7 @@ namespace cppit {
 	}
 
 	template<typename T>
-	Vector Vector<T>::operator=(const Vector<T> &_copyVector) {
+	Vector<T> Vector<T>::operator=(const Vector<T> &_copyVector) {
 		if (_copyVector._vector == nullptr)
 			exit(1); // Won't copy uninitialized vector - preventing undefined behaviour
 		if (_vector)
