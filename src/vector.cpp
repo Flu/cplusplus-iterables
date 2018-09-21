@@ -28,9 +28,9 @@ namespace cppit {
 	}
 
 	template<typename T>
-	short int Vector<T>::operator=(const Vector<T> &_copyVector) {
+	Vector Vector<T>::operator=(const Vector<T> &_copyVector) {
 		if (_copyVector._vector == nullptr)
-			return 1; // Won't copy uninitialized vector - preventing undefined behaviour
+			exit(1); // Won't copy uninitialized vector - preventing undefined behaviour
 		if (_vector)
 			delete[] _vector;
 		_vector = nullptr;
@@ -38,9 +38,9 @@ namespace cppit {
 		_bufferSize = _copyVector._bufferSize;
 		
 		if (!(_vector = new T[_bufferSize]))
-			return 2;
+			exit(2);
 		memcpy(_vector, _copyVector._vector, _size*sizeof(T));
-		return 0;
+		return *this;
 	}
 
 	template<typename T>
@@ -124,9 +124,13 @@ namespace cppit {
 	}
 
 	template<typename T>
-	T& Vector<T>::operator[](const size_t& _pos) {
-		if (_pos > _size - 1)
+	T& Vector<T>::operator[](const long long &_pos) {
+		if (_pos > (long)(_size - 1) || _pos < (long)-_size) {
 			exit(1); // Not accessible
+		}
+		if (_pos < 0) {
+			return this->_vector[_size + _pos];
+		}
 		return this->_vector[_pos];
 	}
 

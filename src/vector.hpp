@@ -52,7 +52,7 @@ namespace cppit {
 		short int push_front(const T &_elem);
 		short int insert(const T &_elem, const size_t &_pos);
 		T pop();
-		T& operator[](const size_t &_pos);
+		T& operator[](const long long &_pos);
 		void swap(Vector<T> &_swapVector);
 		bool operator==(const Vector<T> &_compareVector);
 		inline short int operator+=(const T &_elem);
