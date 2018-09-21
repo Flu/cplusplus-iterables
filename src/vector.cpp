@@ -60,14 +60,26 @@ namespace cppit {
 
 	template<typename T>
 	short int Vector<T>::push_front(const T &_elem) {
-		std::cout << _size << " ";
 		if (++_size > _bufferSize)
 			if (reserve(_bufferSize + 20ul))
 				return 1;
-		std::cout << _size << std::endl;
 		for (size_t _index = _size - 1ul; _index > 0ul; _index--)
 			_vector[_index] = _vector[_index - 1ul];
 		_vector[0] = _elem;
+		return 0;
+	}
+
+	template<typename T>
+	short int Vector<T>::insert(const T &_elem, const size_t &_pos) {
+		if (_pos > _size)
+			return 1; // Space not accesible by user
+		if (++_size > _bufferSize)
+			this->reserve(_bufferSize + 15ul);
+
+		for (size_t _index = _size - 1ul; _index > _pos; _index--) {
+			_vector[_index] = _vector[_index - 1ul];
+		}
+		_vector[_pos] = _elem;
 		return 0;
 	}
 
