@@ -12,7 +12,39 @@ namespace cppit {
 	}
 
 	template<typename T>
-	short int Vector<T>::reserve(const size_t _newBufferSize) {
+	bool Vector<T>::operator==(const Vector<T> &_compareVector) {
+		if (this->_size != _compareVector._size)
+			return false;
+		for (size_t _index = 0ul; _index < _size; _index++) {
+			if (_vector[_index] != _compareVector[_index])
+				return false;
+		}
+		return true;
+	}
+
+	template<typename T>
+	inline short int Vector<T>::operator+=(const T &_elem) {
+		return this->push_back(_elem);
+	}
+
+	template<typename T>
+	Vector<T> Vector<T>::operator=(const Vector<T> &_copyVector) {
+		if (_copyVector._vector == nullptr)
+			exit(1); // Won't copy uninitialized vector - preventing undefined behaviour
+		if (_vector)
+			delete[] _vector;
+		_vector = nullptr;
+		_size = _copyVector._size;
+		_bufferSize = _copyVector._bufferSize;
+		
+		if (!(_vector = new T[_bufferSize]))
+			exit(2);
+		memcpy(_vector, _copyVector._vector, _size*sizeof(T));
+		return *this;
+	}
+
+	template<typename T>
+	short int Vector<T>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
 			return 1; // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
@@ -60,14 +92,26 @@ namespace cppit {
 
 	template<typename T>
 	short int Vector<T>::push_front(const T &_elem) {
-		std::cout << _size << " ";
 		if (++_size > _bufferSize)
 			if (reserve(_bufferSize + 20ul))
 				return 1;
-		std::cout << _size << std::endl;
 		for (size_t _index = _size - 1ul; _index > 0ul; _index--)
 			_vector[_index] = _vector[_index - 1ul];
 		_vector[0] = _elem;
+		return 0;
+	}
+
+	template<typename T>
+	short int Vector<T>::insert(const T &_elem, const size_t &_pos) {
+		if (_pos > _size)
+			return 1; // Space not accesible by user
+		if (++_size > _bufferSize)
+			this->reserve(_bufferSize + 15ul);
+
+		for (size_t _index = _size - 1ul; _index > _pos; _index--) {
+			_vector[_index] = _vector[_index - 1ul];
+		}
+		_vector[_pos] = _elem;
 		return 0;
 	}
 
@@ -80,14 +124,32 @@ namespace cppit {
 	}
 
 	template<typename T>
-	T& Vector<T>::operator[](const size_t& _pos) {
-		if (_pos > _size - 1)
+	T& Vector<T>::operator[](const long long &_pos) {
+		if (_pos > (long)(_size - 1) || _pos < (long)-_size) {
 			exit(1); // Not accessible
+		}
+		if (_pos < 0) {
+			return this->_vector[_size + _pos];
+		}
 		return this->_vector[_pos];
 	}
 
 	template<typename T>
-	size_t Vector<T>::length() const {
+	void Vector<T>::swap(Vector<T> &_swapVector) {
+		T* _temp = this->_vector;
+		this->_vector = _swapVector._vector;
+		_swapVector._vector = _temp;
+		size_t _tempSize = this->_bufferSize;
+		this->_bufferSize = _swapVector._bufferSize;
+		_swapVector._bufferSize = _tempSize;
+		_tempSize = this->_size;
+		this->_size = _swapVector._size;
+		_swapVector._size = _tempSize;
+		_temp = nullptr;
+	}
+
+	template<typename T>
+	const size_t Vector<T>::length() const {
 		return this->_size;
 	}
 

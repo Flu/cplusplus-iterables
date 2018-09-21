@@ -42,17 +42,23 @@ namespace cppit {
 			if (_size > _bufferSize)
 				_bufferSize = _size + 15ul;
 			
-			_vector = new T[_bufferSize];
+			if (!(_vector = new T[_bufferSize]))
+				exit(2);
+			memcpy(_vector, _dr._vector, _size*sizeof(T));
 		}
 
-		size_t length() const;
+		const size_t length() const;
 		short int push_back(const T &_elem);
 		short int push_front(const T &_elem);
 		short int insert(const T &_elem, const size_t &_pos);
 		T pop();
-		T& operator[](const size_t &_pos);
+		T& operator[](const long long &_pos);
+		void swap(Vector<T> &_swapVector);
+		bool operator==(const Vector<T> &_compareVector);
+		inline short int operator+=(const T &_elem);
+		Vector<T> operator=(const Vector<T> &_copyVector);
 
-		short int reserve(const size_t _newBufferSize);
+		short int reserve(const size_t &_newBufferSize);
 		bool shrink();
 		size_t bufferSize() const;		
 
