@@ -41,7 +41,7 @@ namespace cppit {
 			
 			if (!(_vector = new T[_bufferSize]))
 				exit(2);
-			memmove(_vector, _initArray, _size*sizeof(T));
+			memcpy(_vector, _initArray, _size*sizeof(T));
 		}
 
 		Vector(const Vector<T> &_dr) {
@@ -57,7 +57,7 @@ namespace cppit {
 			
 			if (!(_vector = new T[_bufferSize]))
 				exit(2);
-			memmove(_vector, _dr._vector, _size*sizeof(T));
+			memcpy(_vector, _dr._vector, _size*sizeof(T));
 		}
 
 		const size_t length() const;
@@ -70,6 +70,7 @@ namespace cppit {
 		bool operator==(const Vector<T> &_compareVector);
 		inline short int operator+=(const T &_elem);
 		Vector<T> operator=(const Vector<T> &_copyVector);
+		Vector<T> operator()(const size_t &_startSlice, const size_t &_stopSlice);
 		Vector<T> sort(
 			const long long &_start,
 			const long long &_end,

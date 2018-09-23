@@ -51,6 +51,18 @@ namespace cppit {
 	}
 
 	template<typename T>
+	Vector<T> Vector<T>::operator()(const size_t &_startSlice, const size_t &_stopSlice) {
+		if (_startSlice >= _stopSlice) {
+			throw "Invalid_Indices";
+			exit(1);
+		}
+		size_t _slice = _stopSlice - _startSlice;
+
+		Vector *_sliceVector = new Vector(_vector + _startSlice, _slice);
+		return *_sliceVector;
+	}
+
+	template<typename T>
 	size_t Vector<T>::partition(const long long &_start, const long long &_end, std::function<bool(const T&, const T&)> _comp) {
 		size_t _pivot = _vector[_end], indexI = _start;
 		for (size_t indexJ = _start; indexJ < _end; indexJ++) {
