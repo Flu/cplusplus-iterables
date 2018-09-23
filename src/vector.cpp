@@ -7,7 +7,7 @@ namespace cppit {
 		_os << "[";
 		for (size_t _index = 0ul; _index < _output._size; _index++)
 			_os << _output._vector[_index] << ", ";
-		_os << "]";
+		_os << "]" << std::endl;
 		return _os;
 	}
 
@@ -40,6 +40,37 @@ namespace cppit {
 		if (!(_vector = new T[_bufferSize]))
 			exit(2);
 		memcpy(_vector, _copyVector._vector, _size*sizeof(T));
+		return *this;
+	}
+
+	template<typename T>
+	inline void Vector<T>::swap(T& a, T& b) {
+		T aux = a;
+		a = b;
+		b = aux;
+	}
+
+	template<typename T>
+	size_t Vector<T>::partition(const long long &_start, const long long &_end, std::function<bool(const T&, const T&)> _comp) {
+		size_t _pivot = _vector[_end], indexI = _start;
+		for (size_t indexJ = _start; indexJ < _end; indexJ++) {
+			if (_comp(_vector[indexJ], _pivot)) {
+				swap(_vector[indexI], _vector[indexJ]);
+				indexI++;
+			}
+		}
+		swap(_vector[indexI], _vector[_end]);
+		return indexI;
+	}
+
+	template<typename T>
+	Vector<T> Vector<T>::sort(const long long &_start, const long long &_end, std::function<bool(const T&, const T&)> _comp) {
+		if (_start >= _end)
+			return *this;
+
+		size_t _pivot = this->partition(_start, _end, _comp);
+		this->sort(_start, _pivot - 1, _comp);
+		this->sort(_pivot + 1, _end, _comp);
 		return *this;
 	}
 
