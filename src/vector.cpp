@@ -79,10 +79,27 @@ namespace cppit {
 	Vector<T> Vector<T>::sort(const long long &_start, const long long &_end, std::function<bool(const T&, const T&)> _comp) {
 		if (_start >= _end)
 			return *this;
+		if (_end - _start <= 10l)
+			return this->insertSort(_start, _end, _comp);
 
 		size_t _pivot = this->partition(_start, _end, _comp);
 		this->sort(_start, _pivot - 1, _comp);
 		this->sort(_pivot + 1, _end, _comp);
+		return *this;
+	}
+
+	template<typename T>
+	Vector<T> Vector<T>::insertSort(const long long &_start, const long long &_end, std::function<bool(const T&, const T&)> _comp) {
+		size_t _tempStart = _start;
+		for (long long _index = _start + 1; _index <= _end; _index++) {
+			for (long long _itr = _index - 1; _itr >= _start; _itr--) {
+				if (!_comp(_vector[_itr],_vector[_itr+1])) {
+					swap(_vector[_itr], _vector[_itr+1]);
+					continue;
+				}
+				break;
+			}
+		}
 		return *this;
 	}
 

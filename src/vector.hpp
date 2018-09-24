@@ -14,6 +14,10 @@ namespace cppit {
 			const long long &_start,
 			const long long &_end,
 			std::function<bool(const T&, const T&)> _comp);
+		Vector<T> insertSort(
+			const long long &_start,
+			const long long &_end,
+			std::function<bool(const T&, const T&)> _comp);
 	public:
 		Vector() {
 			_vector = nullptr;
