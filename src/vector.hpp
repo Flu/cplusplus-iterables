@@ -26,7 +26,7 @@ namespace cppit {
 		}
 
 		Vector(const size_t &_size, const T &&_rvalue) {
-			_size = _size;
+			this->_size = _size;
 			_bufferSize = _size;
 			_vector = new T[_bufferSize];
 			for (size_t index; index < _size; index++)
@@ -85,7 +85,15 @@ namespace cppit {
 
 		short int reserve(const size_t &_newBufferSize);
 		bool shrink();
-		size_t bufferSize() const;		
+		size_t bufferSize() const;
+
+		Iterator<T> begin() {
+			return Iterator<T>(_vector);
+		}
+
+		Iterator<T> end() {
+			return Iterator<T>(_vector + this->length());
+		}
 
 		friend std::ostream& operator<< <>(std::ostream &_os, const Vector &_output);
 

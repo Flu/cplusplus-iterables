@@ -61,6 +61,14 @@ namespace cppit {
 		size_t bufferSize() const;
 		bool shrink();
 
+		Iterator<char> begin() {
+			return Iterator<char>(_string);
+		}
+
+		Iterator<char> end() {
+			return Iterator<char>(_string + this->length());
+		}
+
 		~String() {
 	  	if (_string)
 				delete[] _string;
