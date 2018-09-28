@@ -47,6 +47,7 @@ namespace cppit {
 
 		Dictionary<T, U> operator=(const Dictionary<T, U> &_copyDict);
 		bool operator==(const Dictionary<T, U> &_compare) const;
+		bool hasKey(const T &_key) const;
 		U& operator[](const T &_key);
 
 		const size_t length() const;

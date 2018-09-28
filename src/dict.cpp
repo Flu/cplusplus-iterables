@@ -18,6 +18,14 @@ namespace cppit {
 	}
 
 	template<typename T, typename U>
+	bool Dictionary<T, U>::hasKey(const T &_key) const {
+		for (size_t index = 0ul; index < _size; index++)
+			if (_keys[index] == _key)
+				return true;
+		return false;
+	}
+
+	template<typename T, typename U>
 	const size_t Dictionary<T, U>::length() const {
 		return this->_size;
 	}
