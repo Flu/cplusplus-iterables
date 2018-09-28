@@ -45,6 +45,10 @@ namespace cppit {
 			memcpy(_values, _copyDict._values, _size*sizeof(U));
 		}
 
+		Dictionary<T, U> operator=(const Dictionary<T, U> &_copyDict);
+		bool operator==(const Dictionary<T, U> &_compare) const;
+		U& operator[](const T &_key);
+
 		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
 		bool shrink();

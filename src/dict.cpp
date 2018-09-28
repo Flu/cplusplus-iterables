@@ -3,6 +3,21 @@
 namespace cppit {
 
 	template<typename T, typename U>
+	Dictionary<T, U> Dictionary<T, U>::operator=(const Dictionary<T, U> &_copyDict) {
+		if (!_copyDict._keys || !_copyDict._values)
+			exit(1); // Won't copy null pointers
+		_size = _copyDict._size;
+		_bufferSize = _copyDict._bufferSize;
+
+		if (!(_keys = new T[_bufferSize]) || !(_values = new U[_bufferSize]))
+			throw std::bad_alloc();
+		
+		memcpy(_keys, _copyDict._keys, _size*sizeof(T));
+		memcpy(_values, _copyDict._values, _size*sizeof(U));
+		return *this;
+	}
+
+	template<typename T, typename U>
 	const size_t Dictionary<T, U>::length() const {
 		return this->_size;
 	}
