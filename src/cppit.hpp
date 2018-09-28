@@ -65,7 +65,7 @@ namespace cppit {
 	bool Iterator<T>::operator!=(const Iterator<T> &_compare) const {
 		return (_position != _compare._position) ? true : false;
 	}
-	
+
 	template<typename T>
 	Iterator<T>& Iterator<T>::operator->() {
 		return _position;
@@ -85,4 +85,8 @@ namespace cppit {
 #ifndef _CPPIT_VECTOR
 	#define _CPPIT_VECTOR
 	#include "vector.cpp"
+#endif
+#ifndef _CPPIT_DICT
+	#define _CPPIT_DICT
+	#include "dict.cpp"
 #endif

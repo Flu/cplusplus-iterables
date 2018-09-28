@@ -1,4 +1,5 @@
 namespace cppit {
+	
 	class String {
 	private:
 		char* _string;
