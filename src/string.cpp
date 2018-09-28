@@ -8,10 +8,14 @@ namespace cppit {
     return os;
   }
 
-  char& String::operator[](const size_t index) {
-  	if (index < _size)
-  	  return _string[index];
-		exit(1); // Out-of-bounds index	
+  char& String::operator[](const long long &_pos) {
+		if (_pos > (long)(_size - 1) || _pos < (long)-_size) {
+			exit(1);
+		}
+		if (_pos < 0) {
+			return this->_string[_size + _pos];
+		}
+		return this->_string[_pos];
   }
 
   String String::operator=(const String &_dr) {
@@ -79,6 +83,16 @@ namespace cppit {
 
 		_temp._size += _concat._size;
 		return _temp;
+	}
+
+	String String::operator()(const size_t &_startSlice, const size_t &_stopSlice) const {
+		if (_startSlice >= _stopSlice || _stopSlice >= _size) {
+			throw "Invalid_Indices";
+			exit(1);
+		}
+		size_t _slice = _stopSlice - _startSlice;
+		String *_sliceString = new String(_string + _startSlice, _slice);
+		return *_sliceString;
 	}
 
 	size_t String::bufferSize() const {

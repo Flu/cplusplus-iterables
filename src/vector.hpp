@@ -71,10 +71,10 @@ namespace cppit {
 		T pop();
 		T& operator[](const long long &_pos);
 		void swap(Vector<T> &_swapVector);
-		bool operator==(const Vector<T> &_compareVector);
+		bool operator==(const Vector<T> &_compareVector) const;
 		inline short int operator+=(const T &_elem);
 		Vector<T> operator=(const Vector<T> &_copyVector);
-		Vector<T> operator()(const size_t &_startSlice, const size_t &_stopSlice);
+		Vector<T> operator()(const size_t &_startSlice, const size_t &_stopSlice) const;
 		Vector<T> sort(
 			const long long &_start,
 			const long long &_end,

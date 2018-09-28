@@ -12,7 +12,7 @@ namespace cppit {
 	}
 
 	template<typename T>
-	bool Vector<T>::operator==(const Vector<T> &_compareVector) {
+	bool Vector<T>::operator==(const Vector<T> &_compareVector) const {
 		if (this->_size != _compareVector._size)
 			return false;
 		for (size_t _index = 0ul; _index < _size; _index++) {
@@ -51,8 +51,8 @@ namespace cppit {
 	}
 
 	template<typename T>
-	Vector<T> Vector<T>::operator()(const size_t &_startSlice, const size_t &_stopSlice) {
-		if (_startSlice >= _stopSlice) {
+	Vector<T> Vector<T>::operator()(const size_t &_startSlice, const size_t &_stopSlice) const {
+		if (_startSlice >= _stopSlice || _stopSlice >= _size) {
 			throw "Invalid_Indices";
 			exit(1);
 		}
