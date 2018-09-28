@@ -64,7 +64,6 @@ namespace cppit {
 			memcpy(_vector, _dr._vector, _size*sizeof(T));
 		}
 
-		const size_t length() const;
 		short int push_back(const T &_elem);
 		short int push_front(const T &_elem);
 		short int insert(const T &_elem, const size_t &_pos);
@@ -83,9 +82,10 @@ namespace cppit {
 				return false;
 			});
 
+		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
 		bool shrink();
-		size_t bufferSize() const;
+		const size_t bufferSize() const;
 
 		Iterator<T> begin() {
 			return Iterator<T>(_vector);

@@ -121,7 +121,7 @@ namespace cppit {
 	}
 
 	template<typename T>
-	size_t Vector<T>::bufferSize() const {
+	const size_t Vector<T>::bufferSize() const {
 		return this->_bufferSize;
 	}
 
