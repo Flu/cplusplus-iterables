@@ -45,6 +45,11 @@ namespace cppit {
 			memcpy(_values, _copyDict._values, _size*sizeof(U));
 		}
 
+		const size_t length() const;
+		short int reserve(const size_t &_newBufferSize);
+		bool shrink();
+		const size_t bufferSize() const;
+
 		~Dictionary() {
 			if (_keys)
 				delete[] _keys;
