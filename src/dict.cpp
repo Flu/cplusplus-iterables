@@ -25,6 +25,19 @@ namespace cppit {
 		return false;
 	}
 
+	template<typename T, typename U> // Mutator
+	U& Dictionary<T, U>::operator[](const T &_key) {
+		std::cout << "mutator" << std::endl;
+		for (size_t index = 0ul; index < _size; index++) {
+			if (_keys[index] == _key)
+				return _values[index];
+		}
+		if (++_size > _bufferSize)
+			this->reserve(_bufferSize + 15ul);
+		_keys[_size - 1] = _key;
+		return _values[_size - 1];
+	}
+
 	template<typename T, typename U>
 	const size_t Dictionary<T, U>::length() const {
 		return this->_size;
