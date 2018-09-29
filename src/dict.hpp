@@ -57,6 +57,19 @@ namespace cppit {
 		bool shrink();
 		const size_t bufferSize() const;
 
+		Iterator<U> begin() {
+			return Iterator(_values);
+		}
+		Iterator<U> end() {
+			return Iterator(_values + this->length());
+		}
+		Iterator<Key> begin_keys() {
+			return Iterator(_keys);
+		}
+		Iterator<Key> end_keys() {
+			return Iterator(_keys + this->length());
+		}
+
 		~Dictionary() {
 			if (_keys)
 				delete[] _keys;
