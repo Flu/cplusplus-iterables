@@ -18,6 +18,24 @@ namespace cppit {
 	}
 
 	template<typename T, typename U>
+	bool Dictionary<T, U>::operator==(const Dictionary<T, U> &_compare) const {
+		if (_size != _compare._size)
+			return false;
+		for (size_t index = 0ul; index < _size; index++) {
+			if (!_compare.hasKey(_keys[index]))
+				return false;
+			if (_values[index] != _compare[_keys[index]])
+				return false;
+		}
+		return true;
+	}
+
+	template<typename T, typename U>
+	inline bool Dictionary<T, U>::operator!=(const Dictionary<T, U> &_compare) const {
+		return !(this->operator==(_compare));
+	}
+
+	template<typename T, typename U>
 	bool Dictionary<T, U>::hasKey(const T &_key) const {
 		for (size_t index = 0ul; index < _size; index++)
 			if (_keys[index] == _key)
@@ -25,9 +43,17 @@ namespace cppit {
 		return false;
 	}
 
+	template<typename T, typename U> // Accessor
+	const U& Dictionary<T, U>::operator[](const T &_key) const {
+		for (size_t index = 0ul; index < _size; index++) {
+			if (_keys[index] == _key)
+				return _values[index];
+		}
+		throw std::bad_optional_access();
+	}
+
 	template<typename T, typename U> // Mutator
 	U& Dictionary<T, U>::operator[](const T &_key) {
-		std::cout << "mutator" << std::endl;
 		for (size_t index = 0ul; index < _size; index++) {
 			if (_keys[index] == _key)
 				return _values[index];

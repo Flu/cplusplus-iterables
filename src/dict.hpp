@@ -2,7 +2,6 @@ namespace cppit {
 
 	template<typename T, typename U>
 	class Dictionary {
-		public:
 		T* _keys;
 		U* _values;
 		size_t _size, _bufferSize;
@@ -47,8 +46,10 @@ namespace cppit {
 
 		Dictionary<T, U> operator=(const Dictionary<T, U> &_copyDict);
 		bool operator==(const Dictionary<T, U> &_compare) const;
+		bool operator!=(const Dictionary<T, U> &_comapare) const;
 		bool hasKey(const T &_key) const;
-		U& operator[](const T &_key);
+		U& operator[](const T &_key); // Mutator
+		const U& operator[](const T &_key) const; // Accessor
 
 		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
