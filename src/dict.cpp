@@ -2,23 +2,23 @@
 
 namespace cppit {
 
-	template<typename T, typename U>
-	Dictionary<T, U> Dictionary<T, U>::operator=(const Dictionary<T, U> &_copyDict) {
+	template<typename Key, typename U>
+	Dictionary<Key, U> Dictionary<Key, U>::operator=(const Dictionary<Key, U> &_copyDict) {
 		if (!_copyDict._keys || !_copyDict._values)
 			exit(1); // Won't copy null pointers
 		_size = _copyDict._size;
 		_bufferSize = _copyDict._bufferSize;
 
-		if (!(_keys = new T[_bufferSize]) || !(_values = new U[_bufferSize]))
+		if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
 			throw std::bad_alloc();
 		
-		memcpy(_keys, _copyDict._keys, _size*sizeof(T));
+		memcpy(_keys, _copyDict._keys, _size*sizeof(Key));
 		memcpy(_values, _copyDict._values, _size*sizeof(U));
 		return *this;
 	}
 
-	template<typename T, typename U>
-	bool Dictionary<T, U>::operator==(const Dictionary<T, U> &_compare) const {
+	template<typename Key, typename U>
+	bool Dictionary<Key, U>::operator==(const Dictionary<Key, U> &_compare) const {
 		if (_size != _compare._size)
 			return false;
 		for (size_t index = 0ul; index < _size; index++) {
@@ -30,30 +30,30 @@ namespace cppit {
 		return true;
 	}
 
-	template<typename T, typename U>
-	inline bool Dictionary<T, U>::operator!=(const Dictionary<T, U> &_compare) const {
+	template<typename Key, typename U>
+	inline bool Dictionary<Key, U>::operator!=(const Dictionary<Key, U> &_compare) const {
 		return !(this->operator==(_compare));
 	}
 
-	template<typename T, typename U>
-	bool Dictionary<T, U>::hasKey(const T &_key) const {
+	template<typename Key, typename U>
+	bool Dictionary<Key, U>::hasKey(const Key &_key) const {
 		for (size_t index = 0ul; index < _size; index++)
 			if (_keys[index] == _key)
 				return true;
 		return false;
 	}
 
-	template<typename T, typename U> // Accessor
-	const U& Dictionary<T, U>::operator[](const T &_key) const {
+	template<typename Key, typename U> // Accessor
+	const U& Dictionary<Key, U>::operator[](const Key &_key) const {
 		for (size_t index = 0ul; index < _size; index++) {
 			if (_keys[index] == _key)
 				return _values[index];
 		}
-		throw std::bad_optional_access();
+		throw std::out_of_range("Key not found");
 	}
 
-	template<typename T, typename U> // Mutator
-	U& Dictionary<T, U>::operator[](const T &_key) {
+	template<typename Key, typename U> // Mutator
+	U& Dictionary<Key, U>::operator[](const Key &_key) {
 		for (size_t index = 0ul; index < _size; index++) {
 			if (_keys[index] == _key)
 				return _values[index];
@@ -64,23 +64,32 @@ namespace cppit {
 		return _values[_size - 1];
 	}
 
-	template<typename T, typename U>
-	const size_t Dictionary<T, U>::length() const {
+	template<typename Key, typename U>
+	U& Dictionary<Key, U>::get(const Key &_key, const U &_defaultValue) {
+		for (size_t index = 0ul; index < _size; index++) {
+			if (_keys[index] == _key)
+				return _values[index];
+		}
+		return _defaultValue;
+	}
+
+	template<typename Key, typename U>
+	const size_t Dictionary<Key, U>::length() const {
 		return this->_size;
 	}
 
-	template<typename T, typename U>
-	short int Dictionary<T, U>::reserve(const size_t &_newBufferSize) {
+	template<typename Key, typename U>
+	short int Dictionary<Key, U>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
 			return 1; // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
 
-		T *_tempKeys;
+		Key *_tempKeys;
 		U *_tempValues;
-		if (!(_tempKeys = new T[_bufferSize]) || !(_tempValues = new U[_bufferSize]))
+		if (!(_tempKeys = new Key[_bufferSize]) || !(_tempValues = new U[_bufferSize]))
 			throw std::bad_alloc();
 		
-		memcpy(_tempKeys, this->_keys, _size*sizeof(T));
+		memcpy(_tempKeys, this->_keys, _size*sizeof(Key));
 		memcpy(_tempValues, this->_values, _size*sizeof(U));
 		delete[] _keys, _values;
 
@@ -89,14 +98,14 @@ namespace cppit {
 		return 0;
 	}
 
-	template<typename T, typename U>
-	bool Dictionary<T, U>::shrink() {
-		T *_tempKeys;
+	template<typename Key, typename U>
+	bool Dictionary<Key, U>::shrink() {
+		Key *_tempKeys;
 		U *_tempValues;
-		if (!(_tempKeys = new T[_size]) || !(_tempValues = new U[_size]))
+		if (!(_tempKeys = new Key[_size]) || !(_tempValues = new U[_size]))
 			throw std::bad_alloc();
 		
-		memcpy(_tempKeys, this->_keys, _size*sizeof(T));
+		memcpy(_tempKeys, this->_keys, _size*sizeof(Key));
 		memcpy(_tempValues, this->_values, _size*sizeof(U));
 		delete[] _keys, _values;
 
@@ -106,8 +115,8 @@ namespace cppit {
 		return true;
 	}
 
-	template<typename T, typename U>
-	const size_t Dictionary<T, U>::bufferSize() const {
+	template<typename Key, typename U>
+	const size_t Dictionary<Key, U>::bufferSize() const {
 		return this->_bufferSize;
 	}
 

@@ -1,8 +1,8 @@
 namespace cppit {
 
-	template<typename T, typename U>
+	template<typename Key, typename U>
 	class Dictionary {
-		T* _keys;
+		Key* _keys;
 		U* _values;
 		size_t _size, _bufferSize;
 
@@ -13,43 +13,44 @@ namespace cppit {
 			_bufferSize = 20ul;
 		}
 
-		explicit Dictionary(const T &_initKey, const U &_initValue) {
+		explicit Dictionary(const Key &_initKey, const U &_initValue) {
 			_bufferSize = 20ul;
-			if (!(_keys = new T[_bufferSize]) || !(_values = new U[_bufferSize]))
+			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
 				throw std::bad_alloc();
 			_keys[0] = _initKey;
 			_values[0] = _initValue;
 			_size = 1ul;
 		}
 
-		explicit Dictionary(const T *_initKeys, const U *_initValues, const size_t &_initSize) {
+		Dictionary(const Key *_initKeys, const U *_initValues, const size_t &_initSize) {
 			if (!_initKeys || !_initValues)
 				exit(1);
 			_bufferSize = 20ul;
 			_size = _initSize;
 			if (_size >= _bufferSize)
 				_bufferSize = _size + 15ul;
-			if (!(_keys = new T[_bufferSize]) || !(_values = new U[_bufferSize]))
+			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
 				throw std::bad_alloc();
-			memcpy(_keys, _initKeys, _size*sizeof(T));
+			memcpy(_keys, _initKeys, _size*sizeof(Key));
 			memcpy(_values, _initValues, _size*sizeof(U));
 		}
 
 		Dictionary(const Dictionary &_copyDict) : _size(_copyDict._size), _bufferSize(_copyDict._bufferSize) {
 			_keys = nullptr;
 			_values = nullptr;
-			if (!(_keys = new T[_bufferSize]) || !(_values = new U[_bufferSize]))
+			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
 				throw std::bad_alloc();
-			memcpy(_keys, _copyDict._keys, _size*sizeof(T));
+			memcpy(_keys, _copyDict._keys, _size*sizeof(Key));
 			memcpy(_values, _copyDict._values, _size*sizeof(U));
 		}
 
-		Dictionary<T, U> operator=(const Dictionary<T, U> &_copyDict);
-		bool operator==(const Dictionary<T, U> &_compare) const;
-		bool operator!=(const Dictionary<T, U> &_comapare) const;
-		bool hasKey(const T &_key) const;
-		U& operator[](const T &_key); // Mutator
-		const U& operator[](const T &_key) const; // Accessor
+		Dictionary<Key, U> operator=(const Dictionary<Key, U> &_copyDict);
+		bool operator==(const Dictionary<Key, U> &_compare) const;
+		bool operator!=(const Dictionary<Key, U> &_comapare) const;
+		bool hasKey(const Key &_key) const;
+		U& operator[](const Key &_key); // Mutator
+		const U& operator[](const Key &_key) const; // Accessor
+		U& get(const Key &_key, const U& _default);
 
 		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
