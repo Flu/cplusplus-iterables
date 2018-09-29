@@ -1,6 +1,9 @@
 namespace cppit {
 
 	template<typename Key, typename U>
+	std::ostream& operator<<(std::ostream &_os, const Dictionary<Key, U> &_output);
+
+	template<typename Key, typename U>
 	class Dictionary {
 		Key* _keys;
 		U* _values;
@@ -25,12 +28,22 @@ namespace cppit {
 		Dictionary(const Key *_initKeys, const U *_initValues, const size_t &_initSize) {
 			if (!_initKeys || !_initValues)
 				exit(1);
+			Dictionary _temp(_initKeys[0], _initValues[0]);
+
+			for (size_t index = 1ul; index < _initSize; index++) {
+				if (_temp.hasKey(_initKeys[index]))
+					throw std::bad_alloc();
+				_temp[_initKeys[index]] = _initValues[index];
+			}
+
 			_bufferSize = 20ul;
 			_size = _initSize;
+
 			if (_size >= _bufferSize)
 				_bufferSize = _size + 15ul;
 			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
 				throw std::bad_alloc();
+
 			memcpy(_keys, _initKeys, _size*sizeof(Key));
 			memcpy(_values, _initValues, _size*sizeof(U));
 		}
@@ -46,11 +59,12 @@ namespace cppit {
 
 		Dictionary<Key, U> operator=(const Dictionary<Key, U> &_copyDict);
 		bool operator==(const Dictionary<Key, U> &_compare) const;
-		bool operator!=(const Dictionary<Key, U> &_comapare) const;
+		bool operator!=(const Dictionary<Key, U> &_compare) const;
 		bool hasKey(const Key &_key) const;
 		U& operator[](const Key &_key); // Mutator
 		const U& operator[](const Key &_key) const; // Accessor
 		U& get(const Key &_key, const U& _default);
+		bool deleteKey(const Key &_key);
 
 		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
@@ -76,6 +90,8 @@ namespace cppit {
 			if (_values)
 				delete[] _values;
 		}
+
+		friend std::ostream& operator<< <>(std::ostream &_os, const Dictionary<Key, U> &_dict);
 	};
 
 } // namespace cppit

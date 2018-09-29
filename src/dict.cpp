@@ -3,6 +3,19 @@
 namespace cppit {
 
 	template<typename Key, typename U>
+	std::ostream& operator<<(std::ostream &_os, const Dictionary<Key, U> &_output) {
+		if (!_output._keys || !_output._values) {
+			_os << "Null cppit::Dictionary<Key, U>" << std::endl;
+			return _os;
+		}
+		_os << "{ ";
+		for (size_t index = 0ul; index < _output._size; index++)
+			_os << _output._keys[index] << " : " << _output._values[index] << ", ";
+		_os << "}" << std::endl;
+		return _os;
+	}
+
+	template<typename Key, typename U>
 	Dictionary<Key, U> Dictionary<Key, U>::operator=(const Dictionary<Key, U> &_copyDict) {
 		if (!_copyDict._keys || !_copyDict._values)
 			exit(1); // Won't copy null pointers
@@ -71,6 +84,22 @@ namespace cppit {
 				return _values[index];
 		}
 		return _defaultValue;
+	}
+
+	template<typename Key, typename U>
+	bool Dictionary<Key, U>::deleteKey(const Key &_key) {
+		long long keyToDelete = -1;
+		for (size_t index = 0ul; index < _size; index++)
+			if (_keys[index] == _key) {
+				keyToDelete = index;
+				break;
+			}
+		if (keyToDelete == -1)
+			return false;
+		for (size_t index = keyToDelete + 1; index < _size; index++) {
+			_keys[index - 1] = _keys[index];
+			_values[index - 1] = _values[index];
+		}
 	}
 
 	template<typename Key, typename U>
