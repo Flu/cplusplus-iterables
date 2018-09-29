@@ -14,6 +14,10 @@ namespace cppit {
 			const long long &_start,
 			const long long &_end,
 			std::function<bool(const T&, const T&)> _comp);
+		Vector<T> insertSort(
+			const long long &_start,
+			const long long &_end,
+			std::function<bool(const T&, const T&)> _comp);
 	public:
 		Vector() {
 			_vector = nullptr;
@@ -22,7 +26,7 @@ namespace cppit {
 		}
 
 		Vector(const size_t &_size, const T &&_rvalue) {
-			_size = _size;
+			this->_size = _size;
 			_bufferSize = _size;
 			_vector = new T[_bufferSize];
 			for (size_t index; index < _size; index++)
@@ -60,17 +64,16 @@ namespace cppit {
 			memcpy(_vector, _dr._vector, _size*sizeof(T));
 		}
 
-		const size_t length() const;
 		short int push_back(const T &_elem);
 		short int push_front(const T &_elem);
 		short int insert(const T &_elem, const size_t &_pos);
 		T pop();
 		T& operator[](const long long &_pos);
 		void swap(Vector<T> &_swapVector);
-		bool operator==(const Vector<T> &_compareVector);
+		bool operator==(const Vector<T> &_compareVector) const;
 		inline short int operator+=(const T &_elem);
 		Vector<T> operator=(const Vector<T> &_copyVector);
-		Vector<T> operator()(const size_t &_startSlice, const size_t &_stopSlice);
+		Vector<T> operator()(const size_t &_startSlice, const size_t &_stopSlice) const;
 		Vector<T> sort(
 			const long long &_start,
 			const long long &_end,
@@ -79,9 +82,18 @@ namespace cppit {
 				return false;
 			});
 
+		const size_t length() const;
 		short int reserve(const size_t &_newBufferSize);
 		bool shrink();
-		size_t bufferSize() const;		
+		const size_t bufferSize() const;
+
+		Iterator<T> begin() {
+			return Iterator<T>(_vector);
+		}
+
+		Iterator<T> end() {
+			return Iterator<T>(_vector + this->length());
+		}
 
 		friend std::ostream& operator<< <>(std::ostream &_os, const Vector &_output);
 
