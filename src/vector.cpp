@@ -106,7 +106,7 @@ namespace cppit {
 	template<typename T>
 	short int Vector<T>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
-			return 1; // Loss of data, forbidden
+			throw std::bad_array_new_length(); // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
 
 		T *_temp;

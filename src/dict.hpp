@@ -11,7 +11,8 @@ namespace cppit {
 
 	public:
 		Dictionary() {
-			_keys = _values = nullptr;
+			_keys = nullptr;
+			_values = nullptr;
 			_size = 0ul;
 			_bufferSize = 20ul;
 		}

@@ -35,7 +35,7 @@ namespace cppit {
 
   short int String::reserve(const size_t _newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
-	  	return 1; // Forbidden, data loss
+	  	throw std::bad_array_new_length(); // Forbidden, data loss
 		_bufferSize = _newBufferSize;
 
 		char *_temp;

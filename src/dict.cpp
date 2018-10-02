@@ -58,6 +58,10 @@ namespace cppit {
 
 	template<typename Key, typename U> // Accessor
 	const U& Dictionary<Key, U>::operator[](const Key &_key) const {
+		if (!_keys)
+			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
+				throw std::bad_alloc();
+
 		for (size_t index = 0ul; index < _size; index++) {
 			if (_keys[index] == _key)
 				return _values[index];
@@ -67,6 +71,10 @@ namespace cppit {
 
 	template<typename Key, typename U> // Mutator
 	U& Dictionary<Key, U>::operator[](const Key &_key) {
+		if (!_keys)
+			if (!(_keys = new Key[_bufferSize]) || !(_values = new U[_bufferSize]))
+				throw std::bad_alloc();
+
 		for (size_t index = 0ul; index < _size; index++) {
 			if (_keys[index] == _key)
 				return _values[index];
@@ -110,7 +118,7 @@ namespace cppit {
 	template<typename Key, typename U>
 	short int Dictionary<Key, U>::reserve(const size_t &_newBufferSize) {
 		if (_newBufferSize <= _bufferSize)
-			return 1; // Loss of data, forbidden
+			throw std::bad_array_new_length(); // Loss of data, forbidden
 		_bufferSize = _newBufferSize;
 
 		Key *_tempKeys;
