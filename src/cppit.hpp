@@ -90,3 +90,7 @@ namespace cppit {
 	#define _CPPIT_DICT
 	#include "dict.cpp"
 #endif
+#ifndef _CPPIT_TUPLE
+	#define _CPPIT_TUPLE
+	#include "tuple.cpp"
+#endif
