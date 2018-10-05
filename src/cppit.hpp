@@ -74,8 +74,6 @@ namespace cppit {
   class String;
 	template<class T> class Vector;
 	template<class T, class U> class Dictionary;
-	class MultiDict;
-	class Tuple;
 } // namespace cppit
 
 #ifndef _CPPIT_STRING

@@ -9,8 +9,10 @@ namespace cppit {
 			return _os;
 		}
 		_os << "{ ";
-		for (size_t index = 0ul; index < _output._size; index++)
+		for (size_t index = 0ul; index < _output._size; index++) {
 			_os << _output._keys[index] << " : " << _output._values[index] << ", ";
+			fflush(stdin);
+		}
 		_os << "}" << std::endl;
 		return _os;
 	}

@@ -11,7 +11,8 @@ namespace cppit {
 
 	public:
 		Dictionary() {
-			_keys = _values = nullptr;
+			_keys = nullptr;
+			_values = nullptr;
 			_size = 0ul;
 			_bufferSize = 20ul;
 		}
@@ -72,16 +73,10 @@ namespace cppit {
 		const size_t bufferSize() const;
 
 		Iterator<U> begin() {
-			return Iterator(_values);
+			return Iterator<U>(_values);
 		}
 		Iterator<U> end() {
-			return Iterator(_values + this->length());
-		}
-		Iterator<Key> begin_keys() {
-			return Iterator(_keys);
-		}
-		Iterator<Key> end_keys() {
-			return Iterator(_keys + this->length());
+			return Iterator<U>(_values + this->length());
 		}
 
 		~Dictionary() {
